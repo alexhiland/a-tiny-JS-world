@@ -8,6 +8,34 @@
 // ======== OBJECTS DEFINITIONS ========
 // Define your objects here
 
+var habitant = function(species, gender, name, legs, hands, say) {
+
+    this.species = species;
+    this.gender = gender;
+    this.name = name;
+    this.legs = legs;
+    this.hands = hands;
+    this.say = say;
+    this.about = function(){
+        return [
+            this.species,
+            this.gender,
+            '<strong>' + this.name + '</strong>',
+            this.legs,
+            this.hands,
+            '<em>' + this.say + '</em>'
+        ].join('; ');
+    }
+}
+
+var man = new habitant('human', 'male', 'Jake', 2, 2, 'Hello Jenny!');
+var woman = new habitant('human', 'female', 'Jenny', 2, 2, 'Hello Jake!');
+var dog = new habitant('dog', 'male', 'Rex', 4, 0, 'Woof woof!');
+var cat = new habitant('cat', 'male', 'Tom', 4, 0, 'Meow frrr frrr!');
+
+var habitants = [man, woman, dog, cat];
+
+print(habitants.map(function (t) { return t.about() }).join('<br>'), 'div');
 
 // ======== OUTPUT ========
 /* Use print(message) for output.
