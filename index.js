@@ -8,34 +8,58 @@
 // ======== OBJECTS DEFINITIONS ========
 // Define your objects here
 
-var habitant = function(species, gender, name, legs, hands, say) {
+class Habitant {
+    constructor(species, gender, name, legs, hands, say) {
+        this.species = species;
+        this.gender = gender;
+        this.name = name;
+        this.legs = legs;
+        this.hands = hands;
+        this.say = say;
+    }
 
-    this.species = species;
-    this.gender = gender;
-    this.name = name;
-    this.legs = legs;
-    this.hands = hands;
-    this.say = say;
-    this.about = function(){
-        return [
-            this.species,
-            this.gender,
-            '<strong>' + this.name + '</strong>',
-            this.legs,
-            this.hands,
-            '<em>' + this.say + '</em>'
-        ].join('; ');
+    toString() {
+        return '<strong>' + this.name + '</strong> is a ' +
+            this.gender + ' ' +
+            this.species + ' with ' +
+            this.legs + ' legs and ' +
+            this.hands + ' hands, saying ' +
+            '<em>' + this.say + '</em>';
     }
 }
 
-var man = new habitant('human', 'male', 'Jake', 2, 2, 'Hello Jenny!');
-var woman = new habitant('human', 'female', 'Jenny', 2, 2, 'Hello Jake!');
-var dog = new habitant('dog', 'male', 'Rex', 4, 0, 'Woof woof!');
-var cat = new habitant('cat', 'male', 'Tom', 4, 0, 'Meow frrr frrr!');
+class Human extends Habitant {
+    constructor(gender, name, say, profession){
+        super("human", gender, name, 2, 2, say);
+        this.profession = profession;
+    }
 
-var habitants = [man, woman, dog, cat];
+    toString() {
+        return super.toString() +
+            ' and works as ' + this.profession;
+    }
+}
 
-print(habitants.map(function (t) { return t.about() }).join('<br>'), 'div');
+class Animal extends Habitant {
+    constructor(gender, name, say, favorite){
+        super("animal", gender, name, 4, 0, say);
+        this.favorite = favorite;
+    }
+
+    toString() {
+        return super.toString() +
+            ' and likes ' + this.favorite;
+    }
+}
+
+let man = new Human('male', 'Jake', 'Hello Jenny!', 'programmer');
+let woman = new Human('female', 'Jenny', 'Hello Jake!', 'designer');
+let dog = new Animal('male', 'Rex', 'Woof woof!', 'bones');
+let cat = new Animal('male', 'Tom', 'Meow frrr frrr!', 'mices');
+
+let habitants = [man, woman, dog, cat];
+
+print(habitants.map(t => t.toString()).join('<br>'), 'div');
 
 // ======== OUTPUT ========
 /* Use print(message) for output.
